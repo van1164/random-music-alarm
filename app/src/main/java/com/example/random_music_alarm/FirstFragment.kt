@@ -35,10 +35,6 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_CreateAlarm)
-            (activity as MainActivity).findViewById<FloatingActionButton>(R.id.fab).show()
-        }
     }
 
     override fun onDestroyView() {

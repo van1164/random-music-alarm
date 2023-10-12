@@ -19,6 +19,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.random_music_alarm.databinding.FragmentSecondBinding
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_KEYBOARD
+import com.google.android.material.timepicker.TimeFormat
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -45,33 +48,38 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_CreateAlarm_to_FirstFragment)
-        }
+        val picker =
+            MaterialTimePicker.Builder()
+                .setInputMode(INPUT_MODE_KEYBOARD)
+                .setTimeFormat(TimeFormat.CLOCK_12H)
+                .setHour(12)
+                .setMinute(10)
+                .setTitleText("Select Appointment time")
+                .build()
+
+        picker.show(requireFragmentManager(), "tag")
 
 
-        val timePicker = binding.timePicker
-
-        binding.setAlarmButton.setOnClickListener {
-            val hour = timePicker.hour
-            val minute = timePicker.minute
-            val calendar = Calendar.getInstance()
-            calendar.set(Calendar.HOUR_OF_DAY, hour)
-            calendar.set(Calendar.MINUTE, minute)
-
-            val alarmManager =
-                requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            val intent = Intent(requireContext(), AlarmReceiver::class.java)
-            val pendingIntent =
-                PendingIntent.getBroadcast(requireContext(), 0, intent, PendingIntent.FLAG_MUTABLE)
-            // 알람 설정
-            when {
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT -> alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
-                else -> alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
-            }
-            Toast.makeText(context,"알람 설정 완료", Toast.LENGTH_LONG).show()
-        }
+//        binding.setAlarmButton.setOnClickListener {
+//            val hour = timePicker.hour
+//            val minute = timePicker.minute
+//            val calendar = Calendar.getInstance()
+//            calendar.set(Calendar.HOUR_OF_DAY, hour)
+//            calendar.set(Calendar.MINUTE, minute)
+//
+//            val alarmManager =
+//                requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+//            val intent = Intent(requireContext(), AlarmReceiver::class.java)
+//            val pendingIntent =
+//                PendingIntent.getBroadcast(requireContext(), 0, intent, PendingIntent.FLAG_MUTABLE)
+//            // 알람 설정
+//            when {
+//                Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+//                Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT -> alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+//                else -> alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+//            }
+//            Toast.makeText(context,"알람 설정 완료", Toast.LENGTH_LONG).show()
+//        }
 
 
     }
