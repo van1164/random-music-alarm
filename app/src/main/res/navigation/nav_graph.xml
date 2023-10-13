@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/CreateAlarm"
-        android:name="com.example.random_music_alarm.SecondFragment"
+        android:name="com.example.random_music_alarm.AlarmCreateFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
 
@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/selectMusicFragment"
-        android:name="com.example.random_music_alarm.SelectMusicFragment"
+        android:name="com.example.random_music_alarm.ui.select_music.SelectMusicFragment"
         android:label="fragment_music_select"
         tools:layout="@layout/fragment_music_select" >
         <action

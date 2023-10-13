@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SelectMusicFragment">
+    tools:context=".ui.select_music.SelectMusicFragment">
 
     <TextView
         android:id="@+id/textView4"
@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/main_font"
         android:text="기상할 때 듣고 싶은 음악을 골라주세요"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +26,7 @@
         android:layout_marginTop="3dp"
         android:fontFamily="@font/main_font"
         android:text="AI가 비슷한 느낌으로 매일 다른 음악을 틀어줍니다."
-        android:textSize="10sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />

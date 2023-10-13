@@ -44,10 +44,6 @@ class AlarmCreateViewModel : ViewModel() {
     val clockUiState: StateFlow<ClockUiState> = _clockUiState.asStateFlow()
     // Handle business logic
 
-
-    fun setAlarm(){
-
-    }
     fun changeTime(hour: String,minute: String,ampm: String){
         _clockUiState.update { currentState ->
 

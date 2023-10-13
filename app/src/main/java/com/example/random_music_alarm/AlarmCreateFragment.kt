@@ -8,21 +8,17 @@ import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.random_music_alarm.databinding.FragmentSecondBinding
-import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_KEYBOARD
 import com.google.android.material.timepicker.TimeFormat
@@ -31,7 +27,7 @@ import kotlinx.coroutines.launch
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class SecondFragment : Fragment() {
+class AlarmCreateFragment : Fragment() {
 
     private var _binding: FragmentSecondBinding? = null
 
@@ -39,6 +35,7 @@ class SecondFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     val viewModel: AlarmCreateViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -156,23 +153,12 @@ class SecondFragment : Fragment() {
         binding.finishButton.setOnClickListener {
             val clockValue = viewModel.clockUiState.value
             val calendarValue = viewModel.uiState.value
-            val hour = clockValue.hour.toInt()
+            var hour = clockValue.hour.toInt()
             val minute = clockValue.minute.toInt()
-            val calendar = Calendar.getInstance()
-            calendar.set(Calendar.HOUR_OF_DAY, hour)
-            calendar.set(Calendar.MINUTE, minute)
-
-            val alarmManager =
-                requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            val intent = Intent(requireContext(), AlarmReceiver::class.java)
-            val pendingIntent =
-                PendingIntent.getBroadcast(requireContext(), 0, intent, PendingIntent.FLAG_MUTABLE)
-            // 알람 설정
-            when {
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT -> alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
-                else -> alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
-            }
+            val time = "2023-10-13 $hour:$minute:00"
+            val random = (1..100000) // 1~100000 범위에서 알람코드 랜덤으로 생성
+            val alarmCode = random.random()
+            AlarmFunctions(requireContext()).callAlarm(time,alarmCode,time)
             Toast.makeText(context,"알람 설정 완료", Toast.LENGTH_LONG).show()
         }
 
