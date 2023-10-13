@@ -26,7 +26,7 @@ class FirstFragment : Fragment() {
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
 
         binding.fab.setOnClickListener { view ->
-            navController.navigate(R.id.action_FirstFragment_to_CreateAlarm)
+            navController.navigate(R.id.action_FirstFragment_to_select_mood)
         }
         return binding.root
 
