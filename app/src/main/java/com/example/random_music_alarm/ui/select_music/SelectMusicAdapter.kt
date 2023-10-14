@@ -1,15 +1,17 @@
 package com.example.random_music_alarm.ui.select_music
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.media.MediaPlayer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.random_music_alarm.R
+import kotlin.coroutines.coroutineContext
 
 data class Selected(
     val selectedIndex: Int? = null,
@@ -19,7 +21,7 @@ data class Selected(
 class SelectMusicAdapter(
     private var data: List<String>,
     val onClickSelect: (index: Int) -> Unit,
-    val onClickPlay : (index : Int) -> Unit
+    val onClickPlay: (index: Int) -> Unit,
 ) : RecyclerView.Adapter<SelectMusicAdapter.MyViewHolder>() {
 
     private var selected =Selected()
@@ -28,6 +30,7 @@ class SelectMusicAdapter(
         val musicTitleText: TextView = itemView.findViewById(R.id.musicTitleText)
         val isSelectedButton  = itemView.findViewById<ImageButton>(R.id.isSelectButton)
         val playPauseButton = itemView.findViewById<ImageButton>(R.id.playPauseButton)
+        var mediaplayer : MediaPlayer = MediaPlayer()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -41,8 +44,15 @@ class SelectMusicAdapter(
         if(position == selected.selectedIndex) holder.isSelectedButton.setImageResource(R.drawable.selected_button)
         else holder.isSelectedButton.setImageResource(R.drawable.unselected_button)
 
-        if(position == selected.playedIndex) holder.playPauseButton.setImageResource(R.drawable.pause)
-        else holder.playPauseButton.setImageResource(R.drawable.play)
+        if(position == selected.playedIndex) {
+            holder.playPauseButton.setImageResource(R.drawable.pause)
+            holder.mediaplayer= MediaPlayer.create(holder.playPauseButton.context, R.raw.sample)
+            holder.mediaplayer.start()
+        }
+        else{
+            holder.playPauseButton.setImageResource(R.drawable.play)
+            holder.mediaplayer.stop()
+        }
 
         holder.isSelectedButton.setOnClickListener {
             onClickSelect(position)

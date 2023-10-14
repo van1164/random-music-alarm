@@ -1,4 +1,4 @@
-package com.example.random_music_alarm
+package com.example.random_music_alarm.ui.create_alarm
 
 import android.app.Service
 import android.content.Intent

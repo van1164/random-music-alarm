@@ -1,14 +1,17 @@
-package com.example.random_music_alarm
+package com.example.random_music_alarm.ui.create_alarm
 
+import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import java.text.ParseException
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.Calendar
 import java.util.Date
 
@@ -17,6 +20,7 @@ class AlarmFunctions(private val context: Context){
     private lateinit var pendingIntent: PendingIntent
     private val ioScope by lazy { CoroutineScope(Dispatchers.IO) }
 
+    @SuppressLint("SimpleDateFormat")
     fun callAlarm(time : String, alarm_code : Int, content : String){
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -42,7 +46,7 @@ class AlarmFunctions(private val context: Context){
 
         val calendar = Calendar.getInstance()
         calendar.time = datetime
-
+        Log.d("XXXXXXXXXX", calendar.toString())
         //API 23(android 6.0) 이상(해당 api 레벨부터 도즈모드 도입으로 setExact 사용 시 알람이 울리지 않음)
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,calendar.timeInMillis,pendingIntent);
     }

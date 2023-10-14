@@ -1,12 +1,6 @@
-package com.example.random_music_alarm
+package com.example.random_music_alarm.ui.create_alarm
 
 import android.annotation.SuppressLint
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
-import android.icu.util.Calendar
-import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,11 +12,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.example.random_music_alarm.R
 import com.example.random_music_alarm.databinding.FragmentSecondBinding
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_KEYBOARD
 import com.google.android.material.timepicker.TimeFormat
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -153,9 +149,10 @@ class AlarmCreateFragment : Fragment() {
         binding.finishButton.setOnClickListener {
             val clockValue = viewModel.clockUiState.value
             val calendarValue = viewModel.uiState.value
-            var hour = clockValue.hour.toInt()
+            val hour = clockValue.hour.toInt()
             val minute = clockValue.minute.toInt()
-            val time = "2023-10-13 $hour:$minute:00"
+            val date = LocalDate.now()
+            val time = "$date $hour:$minute:00"
             val random = (1..100000) // 1~100000 범위에서 알람코드 랜덤으로 생성
             val alarmCode = random.random()
             AlarmFunctions(requireContext()).callAlarm(time,alarmCode,time)

@@ -12,10 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.random_music_alarm.AlarmCreateViewModel
 import com.example.random_music_alarm.R
 import com.example.random_music_alarm.databinding.FragmentMusicSelectBinding
-import com.example.random_music_alarm.databinding.FragmentSelectMoodBinding
 import kotlinx.coroutines.launch
 
 private const val ARG_PARAM1 = "param1"

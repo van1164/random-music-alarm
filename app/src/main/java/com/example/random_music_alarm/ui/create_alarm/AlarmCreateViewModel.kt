@@ -1,4 +1,4 @@
-package com.example.random_music_alarm
+package com.example.random_music_alarm.ui.create_alarm
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -70,19 +70,19 @@ class AlarmCreateViewModel : ViewModel() {
             Day.TUESDAY ->{
                 tuesdaySelected = !tuesdaySelected
             }
-            Day.WEDNESDAY->{
+            Day.WEDNESDAY ->{
                 wednesdaySelected = !wednesdaySelected
             }
-            Day.THURSDAY->{
+            Day.THURSDAY ->{
                 thursdaySelected = !thursdaySelected
             }
-            Day.FRIDAY->{
+            Day.FRIDAY ->{
                 fridaySelected = !fridaySelected
             }
-            Day.SATURDAY->{
+            Day.SATURDAY ->{
                 saturdaySelected = !saturdaySelected
             }
-            Day.SUNDAY->{
+            Day.SUNDAY ->{
                 sundaySelected = !sundaySelected
             }
         }

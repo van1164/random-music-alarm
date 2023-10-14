@@ -1,22 +1,21 @@
-package com.example.random_music_alarm
+package com.example.random_music_alarm.ui.create_alarm
 
 import android.annotation.SuppressLint
-import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.media.Ringtone
 import android.media.RingtoneManager
 import android.os.Build
-import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
+import com.example.random_music_alarm.MainActivity
+import com.example.random_music_alarm.R
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 class AlarmReceiver() : BroadcastReceiver() {
 
@@ -44,7 +43,8 @@ class AlarmReceiver() : BroadcastReceiver() {
 
         builder = NotificationCompat.Builder(context, CHANNEL_ID)
 
-        val intent2 = Intent(context, AlarmService::class.java)
+        val intent2 = Intent(context, MainActivity::class.java)
+        intent2.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         val requestCode = intent?.extras!!.getInt("alarm_rqCode")
         val title = intent.extras!!.getString("content")
 
@@ -53,7 +53,10 @@ class AlarmReceiver() : BroadcastReceiver() {
         }else {
             PendingIntent.getActivity(context,requestCode,intent2,PendingIntent.FLAG_UPDATE_CURRENT);
         }
-
+        Log.d("XXXXXXXXXX",LocalDateTime.now().toString())
+        val uriRingtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+        val ringtone = RingtoneManager.getRingtone(context,uriRingtone)
+        ringtone.play()
         val notification = builder.setContentTitle(title)
             .setContentText("SCHEDULE MANAGER")
             .setSmallIcon(R.drawable.ic_launcher_background)
